@@ -5,7 +5,7 @@ class SortedArray
     @internal_arr = []
     arr.each { |el| add el }
   end
-
+  
   def add el
     # we are going to keep this array
     # sorted at all times. so this is ez
@@ -32,28 +32,53 @@ class SortedArray
         hi = mid 
       end
     end
-
     # insert at the lo position
     @internal_arr.insert(lo, el)
   end
 
   def each &block
-    raise NotImplementedError.new("You need to implement the each method!")
+    #u want to have an index
+    #loop over all elements in internal array.
+    #yield to each element
+    i= 0 #keep track of our index
+    while i < @internal_arr.size
+      yield @internal_arr[i]
+      i+= 1
+    end
+    return @internal_arr
   end
 
   def map &block
-    raise NotImplementedError.new("You need to implement the map method!")
+        #get input array
+        #make new array
+        # #call each on new array
+        # pass block
+        # @internal_arr
+        new_array= @internal_arr.dup
+         return new_array.each &block
   end
 
   def map! &block
-    raise NotImplementedError.new("You need to implement the map! method!")
+    @internal_arr= self.each &block
   end
 
-  def find value
-    raise NotImplementedError.new("You need to implement the find method!")
+  def find &block
+    #if the result of the block is true, exit the array , return the value of array[i]
+    z=nil
+    #self.each {|x| return x if yield(x)}
+
+    self.each do |x| 
+      if yield x 
+        z = x
+        break
+      end
+    end
+    return z 
   end
 
   def inject acc=nil, &block
+    #iterate over array, while keeping track of a var
+    array.inj
     raise NotImplementedError.new("You need to implement the inject method!")
   end
 end
